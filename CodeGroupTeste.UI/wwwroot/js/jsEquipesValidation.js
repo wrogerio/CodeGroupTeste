@@ -100,30 +100,54 @@ function SortearTimes(jogadores, qtdPorTime) {
 
     return times;
 }
-
 async function montarEscalacao() {
     var partidaDetails = await getJogoDetails();
     var jogadores = partidaDetails.Jogadores;
     var timesSorteados = SortearTimes(jogadores, partidaDetails.QtdPorTime);
     return timesSorteados;
 }
-
 async function gerarEscalacaoHTML() {
     $("#divEscalacao").empty();
 
-    var modeloHTML_Start = `<div class="col"><h3 class='text-danger'>$titulo</h3><ul class="list-group">`;
-    var modeloHTML_jogador = `<li class="list-group-item">$jogadorNome - $jogadorPontos</li>`
-    var modeloHTML_End = `</ul></div>`;
-
     var escalacao = await montarEscalacao();
+    console.log(escalacao);
+
+    var modeloHTML_Start = `
+    <div class="col">
+        <table class='table table-sm table-bordered'>
+            <caption class='bg-danger text-white py-1 px-2 mb-1'>
+                <div class='d-flex justify-content-between'>
+                    <h4>Time $timeId</h4>
+                    <h4>Soma: $soma</h4>
+                </div>    
+            </caption>
+            <thead>
+                <tr>
+                    <th class='text-center'>Posição</th>
+                    <th class='text-center'>Nome</th>
+                    <th class='text-center px-4' style'width:75px'>Nível</th>
+                </tr>
+            </thead>
+            <tbody>`;
+    var modeloHTML_jogador = `
+                <tr>
+                    <td class='text-center fit'>$posicao</td>
+                    <td class='text-center'>$nome</td>
+                    <td class='text-center'>$nivel</td>
+                </tr>`;
+    var modeloHTML_End = `
+            </tbody>
+        </table>
+    </div>`;
 
     escalacao.forEach(time => {
-        var html = modeloHTML_Start;
-        html = html.replace('$titulo', `Time ${time.timeId + 1} - ${time.soma} pontos`);
-        time.jogadores.forEach(jogador => {
-            html += modeloHTML_jogador.replace('$jogadorNome', jogador.Nome);
-            html = html.replace('$jogadorPontos', jogador.Nivel);
-        });
+        var html = modeloHTML_Start.replace('$timeId', time.timeId + 1).replace('$soma', time.soma);
+        var posicaoHtml = '';
+            time.jogadores.forEach(jogador => {
+                html += modeloHTML_jogador.replace('$posicao', `<img src='/imgs/${jogador.IsGoleiro == true ? 'goal':'chuteira'}.png' style='width:35px' />`);
+                html = html.replace('$nome', jogador.Nome);
+                html = html.replace('$nivel', jogador.Nivel);
+            });
         html += modeloHTML_End;
         $("#divEscalacao").append(html);
     });
