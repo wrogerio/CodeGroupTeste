@@ -1,0 +1,77 @@
+﻿@model JogoDto;
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="bg-danger text-center p-5 bgHeader">
+            <h1 class="text-white">Onde será a grande partida?</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="text-danger fw-boild">Lista de Jogos</h2>
+            <a class="btn btn-danger" asp-action="Index" asp-controller="Partida">
+                <i class="fas fa-chevron-circle-left"></i>
+                Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<form asp-action="Create" asp-controller="Partida">
+    <div class="row">
+        <div class="col-12 col-sm-4 col-md-3 col-lg-3">
+            <div class="form-group">
+                <label for="dtPartida">Data da Partida</label>
+                <input class="form-control shadow-none py-2" type="date" id="dtPartida" asp-for="DtPartida" />
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-9 col-lg-5">
+            <div class="form-group">
+                <label for="local">Local</label>
+                <input class="form-control shadow-none py-2" type="text" id="local" asp-for="Local" />
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2">
+            <div class="form-group">
+                <label for="placar">Placar</label>
+                <input class="form-control shadow-none py-2" type="text" id="placar" asp-for="Placar" />
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-2">
+            <div class="form-group">
+                <label for="qtdTime">Quantidade por time</label>
+                <input class="form-control shadow-none py-2" type="number" id="qtdTime" asp-for="QtdPorTime" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="observacao">Observação</label>
+                <textarea asp-for="Observacao" class="form-control shadow-none py-2" id="observacao" rows="3"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-4">
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-save"></i>
+                Salvar
+            </button>
+            <a class="btn btn-danger" asp-action="Index" asp-controller="Home">
+                <i class="fas fa-chevron-circle-left"></i>
+                Voltar
+            </a>
+        </div>
+    </div>
+</form>

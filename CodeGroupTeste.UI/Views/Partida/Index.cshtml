@@ -1,0 +1,281 @@
+﻿@model JogoViewModel
+@{
+    ViewData["Title"] = "Detalhes do Jogo";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="bg-danger text-center p-5 bgHeader">
+            <h1 class="text-white">Lista de Jogadores! Só craque.</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h3 class="text-danger fw-boild">Aqui você escala um time campeão!</h3>
+            <a class="btn btn-danger" asp-action="Index" asp-controller="Home">
+                <i class="fas fa-chevron-circle-left"></i>
+                Voltar
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-danger py-2">
+                <h4 class="text-white m-0">1° Detalhes da partida</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-0">
+                    <div class="col-4">
+                        <div class="text-center text-danger alert alert-danger">
+                            <i class="fas fa-calendar-check fa-lg mb-3"></i>
+                            <h4>@Model.Jogo.DtPartida.ToShortDateString()</h4>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="text-center text-danger alert alert-danger">
+                            <i class="fas fa-map-marker-alt fa-lg mb-3"></i>
+                            <h4>@Model.Jogo.Local</h4>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="text-center text-danger alert alert-danger">
+                            <i class="fas fa-user fa-lg mb-3"></i>
+                            <h4>@Model.Jogo.QtdPorTime</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-0">
+                    <div class="col">
+                        <div class="text-center py-3 alert alert-danger">
+                            <h5 class="text-danger">@Model.Jogo.Observacao</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-danger py-2">
+                <h4 class="text-white m-0">2° Jogadores convocados</h4>
+            </div>
+            <div class="card-body">
+                <div class="row mb-0">
+                    <div class="col">
+                        <table class="table table-bordered" id="tbDados">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Nivel</th>
+                                    <th>Posição</th>
+                                    <th class="d-none d-md-table-cell">Observação</th>
+                                    <th>Confg</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Jogadores)
+                                {
+                                    <tr class="trJogador" id="@item.Id" nome="@item.Nome" nivel="@item.Nivel" isGoleiro="@(item.IsGoleiro.ToString())" isConfirmado="@(item.IsConfirmado.ToString())" obs="@item.Observacao">
+                                        <td>@item.Nome</td>
+                                        <td class="fit">
+                                            @if (item.Nivel.ToString() == "Fraco")
+                                            {
+                                                <i class="fas fa-star"></i>
+                                            }
+                                            else if (item.Nivel.ToString() == "Regular")
+                                            {
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            }
+                                            else if (item.Nivel.ToString() == "Bom")
+                                            {
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            }
+                                            else if (item.Nivel.ToString() == "Excelente")
+                                            {
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            }
+                                        </td>
+
+                                        <td class="fit">
+                                            @if (item.IsGoleiro)
+                                            {
+                                                <img src="/imgs/goal.png" style="width: 35px">
+                                            }
+                                            else
+                                            {
+                                                <img src="/imgs/chuteira.png" style="width: 35px">
+                                            }
+                                        </td>
+                                        <td class="fit d-none d-md-table-cell">@item.Observacao</td>
+                                        <td class="fit">
+                                            @if (item.IsConfirmado)
+                                            {
+                                                <i class="far fa-thumbs-up text-danger"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fas fa-thumbs-down text-primary"></i>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-danger py-2">
+                <h4 class="text-white m-0">3° Gerenciamento de jogadores</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        @if (ViewBag.Mensagem != null)
+                        {
+                            <div class="alert alert-danger text-center">
+                                <h3 class="text-danger">@ViewBag.Mensagem</h3>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <span class="btn btn-danger shadow-none">
+                            Novo Jogador
+                        </span>
+                    </div>
+                </div>
+
+                <form asp-action="AddOrEdit" asp-controller="Jogador" class="border p-3" id="frmAddOrEdit">
+                    <input type="hidden" value="@Model.Jogo.Id" asp-for="@Model.Jogador.JogoId" />
+                    <input hidden class="jogadorId" name="jogadorIdDelete" id="jogadorIdDelete" />
+                    <input type="hidden" asp-for="Jogador.Id" class="jogadorId" name="jogadorId" />
+
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" class="form-control shadow-none py-2" id="nome" placeholder="Nome" asp-for="Jogador.Nome" autofocus>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="form-group">
+                                <label for="nivel">Nivel</label>
+                                <select class="form-control shadow-none py-2" id="nivel" asp-for="Jogador.Nivel" asp-items="@ViewBag.Niveis">
+                                    <option value="">Selecione...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-md-4 col-lg-2">
+                            <div class="form-group">
+                                <label for="isGoleiro">Goleiro?</label>
+                                <select class="form-control shadow-none py-2" id="isGoleiro" asp-for="Jogador.IsGoleiro">
+                                    <option value="">Selecione...</option>
+                                    <option value="False">Não</option>
+                                    <option value="True">Sim</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4 col-lg-2">
+                            <div class="form-group">
+                                <label for="isConfirmado">Confirmado?</label>
+                                <select class="form-control shadow-none py-2" id="isConfirmado" asp-for="Jogador.IsConfirmado">
+                                    <option value="False">Não</option>
+                                    <option value="True">Sim</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group my-2">
+                                <label for="observacao">Observação</label>
+                                <textarea class="form-control shadow-none py-2" id="observacao" rows="3" asp-for="Jogador.Observacao"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mt-2">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <button id="btnAddOrEdit" type="submit" class="btn btn-danger">
+                                        <i class="fas fa-plus ms-1"></i>
+                                        Adicionar
+                                    </button>
+                                    <span id="cleanForm" class="btn btn-danger">
+                                        <i class="fas fa-broom"></i>
+                                        Limpar
+                                    </span>
+                                    <span id="btnRemove" class="btn btn-danger">Remover <i class="fas fa-trash ms-1"></i></span>
+                                </div>
+                                <div>
+                                    <a class="btn btn-danger" asp-action="Index" asp-controller="Home">
+                                        <i class="fas fa-chevron-circle-left"></i>
+                                        Voltar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-danger py-2">
+                <h4 class="text-white m-0">4° Separação das equipes</h4>
+            </div>
+            <div class="card-body">
+                <div id="divMensagens">
+                </div>
+                <div class="row" id="divEscalacao">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/jsJogo.js"></script>
+    <script src="~/js/jsequipesvalidation.js"></script>
+    }
+

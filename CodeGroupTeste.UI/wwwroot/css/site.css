@@ -1,0 +1,45 @@
+html {
+    font-size: 14px;
+}
+
+.wrapper {
+    min-height: 100vh;
+}
+
+.bgHeader{
+    background-image: linear-gradient(-5deg, #910d11 0%,  #e51a20 10%, #ba1217 50%, #e51a20 62%, #910d11 100%);
+    box-shadow: 0 0 5px 2px #460b0b;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.container {
+    border-radius: 10px;
+    box-shadow: 0 0 40px 4px #460b0b;
+
+}
+
+body {
+    margin-top: 5px;
+    background-image: linear-gradient(to right, rgba(255, 0, 0, .8), rgba(0, 0, 0, 1), rgba(255, 0, 0, .8)), url(../imgs/soccer_bg.jpg);
+    background-attachment: fixed;
+    background-position: bottom;
+    background-size: cover;
+}
+
+td:last-child, .fit {
+    text-align: center;
+    width: 1% !important;
+    white-space: nowrap;
+}
+
+tr {
+    cursor: pointer;
+}

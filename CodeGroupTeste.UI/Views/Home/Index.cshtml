@@ -1,0 +1,60 @@
+﻿@model List<JogoDto>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="row">
+    <div class="col-12">
+        <div class="bg-danger text-center p-5 bgHeader">
+            <h1 class="text-white">Bora Jogar com os amigos, naquela resenha?</h1>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col py-2">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="text-danger fw-boild">Lista de Jogos</h2>
+            <a class="btn btn-danger btn" asp-action="Create" asp-controller="Partida">
+                <i class="fas fa-futbol"></i>
+                Novo Jogo
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-bordered text-center" id="tbDados">
+            <thead>
+                <tr>
+                    <th>Local</th>
+                    <th>Data</th>
+                    <th>Observacoes</th>
+                    <th>Realizado</th>
+                    <th>#</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Local</td>
+                        <td>@item.DtPartida.ToShortDateString()</td>
+                        <td>@item.Observacao</td>
+                        <td>@(item.IsRealizado ? "Realizado" : "Não Realizado")</td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="Partida" asp-route-id="@item.Id"><i class="fal fa-edit btn btn-outline-danger me-1" title="Editar dados da Partida"></i></a>
+                            <span onclick="ConfirmRemove('@item.Id', '@item.Local')"><i class="fal fa-trash btn btn-outline-danger me-1" title="Remover Partida"></i></span>
+                            <a asp-action="Index" asp-controller="Partida" asp-route-id="@item.Id"><i class="fal fa-search btn btn-outline-danger" title="Detalhes da partida"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/jsHome.js"></script>
+}

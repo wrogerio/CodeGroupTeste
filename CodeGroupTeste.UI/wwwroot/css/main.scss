@@ -1,0 +1,52 @@
+$primary: #222;
+$secondary: #FEDE1A;
+$danger: #e51a20;
+
+/*use danger - 200*/
+$danger-300:  #e51a20;
+
+@import '../lib/bootstrap/scss/bootstrap.scss';
+
+label{
+    color: $danger;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.page-item.active .page-link{
+    background-color: $danger;
+    border-color: $danger;
+}
+
+th{
+    background-color: $danger !important;
+    background-image: linear-gradient(-90deg, #ce1f25 0%,  $danger 20%, #ce1f25 50%, $danger 80%, #ce1f25 100%);
+    color: white;
+}
+
+td{
+    color: $danger;
+}
+
+a{
+    text-decoration: none!important;
+}
+
+.dataTables_info, .dataTables_empty{
+    color: $danger;
+}
+
+.form-select:focus, .form-select:active, .form-select:valid, .form-control:focus, .form-control:active, .form-control:valid{
+    color: $danger;
+}
+
+.form-control::placeholder {
+    color: $danger;
+}
+
+/*change bootstrsap form control to border red on focus*/
+
+.form-control, .form-control:focus, .form-control:active, .form-control:valid, .form-control:invalid {
+    border: 1px solid $danger;
+} 
