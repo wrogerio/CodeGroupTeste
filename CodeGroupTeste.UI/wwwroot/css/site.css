@@ -11,6 +11,11 @@ html {
     box-shadow: 0 0 5px 2px #460b0b;
 }
 
+table caption{
+caption-side: top;
+    text-align: center;
+}
+
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -36,7 +41,7 @@ body {
 
 td:last-child, .fit {
     text-align: center;
-    width: 1% !important;
+    width: 1%;
     white-space: nowrap;
 }
 
