@@ -32,12 +32,14 @@ public class JogadorController : Controller
             {
                 jogoViewModel.Jogador.Id = jogadorId.Value;
 
-                if (ValidarGoleiro(jogoViewModel.Jogador.JogoId))
+                if (jogoViewModel.Jogador.IsGoleiro && !ValidarGoleiro(jogoViewModel.Jogador.JogoId))
                 {
-                    await _jogadorService.Update(jogoViewModel.Jogador);
                     return RedirectToAction("Index", "Partida", new { id = jogoViewModel.Jogador.JogoId });
                 }
-                
+
+                await _jogadorService.Update(jogoViewModel.Jogador);
+                return RedirectToAction("Index", "Partida", new { id = jogoViewModel.Jogador.JogoId });
+
                 // add mensagem to session
                 Request.HttpContext.Session.SetString("Mensagem", "Não é possível adicionar o goleiro. Já tem goleiro suficiente");
 

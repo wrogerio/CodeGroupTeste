@@ -1,5 +1,4 @@
 ﻿using CodeGroupTeste.Domain.Entities;
-using CodeGroupTeste.Helper.Constants;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeGroupTeste.Infra.Context;

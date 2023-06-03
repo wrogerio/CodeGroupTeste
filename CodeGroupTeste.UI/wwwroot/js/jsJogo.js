@@ -5,6 +5,7 @@ $(document).ready(function () {
         var trClicked = $(e.target).parent();
         $("#nome").focus();
 
+        // preenche os campos do form com os dados da linha clicada
         $(".jogadorId").val(trClicked.attr('id'));
         $("#btnRemove").val(trClicked.attr('id'));
         $("#nome").val(trClicked.attr('nome'));

@@ -15,7 +15,11 @@ public class NativeInjector
     public static void RegisterApp(IServiceCollection service, IConfiguration configuration)
     {
         // Context
-        service.AddDbContext<CodeGroupContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+        service.AddDbContext<CodeGroupContext>(opt =>
+        {
+            opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        });
 
         // Repository
         service.AddScoped<IJogadorRepository, JogadorRepository>();

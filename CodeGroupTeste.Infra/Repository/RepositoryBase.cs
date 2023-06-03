@@ -38,6 +38,9 @@ public class RepositoryBase<T> : IRepositoryBase<T> where T : class
 
     public async Task<T> Update(T entity)
     {
+        // clear tracking
+
+        _context.Entry(entity).State = EntityState.Detached;
         var result = _context.Set<T>().Update(entity);
         await _context.SaveChangesAsync();
         return result.Entity;
