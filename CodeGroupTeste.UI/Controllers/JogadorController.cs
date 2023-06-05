@@ -16,12 +16,6 @@ public class JogadorController : Controller
         _jogoService = jogoService;
     }
 
-    public async Task<IActionResult> Index()
-    {
-        var jogadores = await _jogadorService.GetAll();
-        return View(jogadores);
-    }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddOrEdit(Guid? jogadorId, JogoViewModel jogoViewModel)
@@ -64,9 +58,9 @@ public class JogadorController : Controller
         if (ModelState.IsValid)
         {
             await _jogadorService.Update(jogadorDto);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Partida", new { id = jogadorDto.JogoId });
         }
-        return View(jogadorDto);
+        return RedirectToAction("AddOrEdit", new { id = jogadorDto.Id });
     }
 
     //Delete
